@@ -3,7 +3,7 @@
   --color-primary: #000000;
   --color-secondary: #e74c3c;
   --color-accent: #eb9d00;
-  --color-text: #e6c9e2;
+  --color-text: #ffffff;
   --color-text-light: #fff;
   --color-background: #121212;
   --color-background-alt: #48d8c2;
@@ -14,7 +14,7 @@
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   --font-size-base: 1rem; /* 18px - better readability */
   --font-size-small: 0.875rem;
-  --font-size-large: 1.5rem; /* 22px */
+  --font-size-large: 1.5rem; /* 24px */
   --font-size-xl: 1.75rem; /* 28px */
   --font-size-xxl: 46px;
   --font-weight-normal: 400;
@@ -104,6 +104,7 @@ html {
   TYPOGRAPHY
    =================================== */
 .section__title_secondary {
+  margin-bottom: var(--spacing-xxl);
   position: relative;
   font-size: var(--font-size-xxl);
   color: var(--color-accent);
@@ -119,7 +120,9 @@ html {
     transform: translateX(-50%);
   }
 }
-
+h3.big-description {
+  font-size: var(--font-size-large);
+}
 /* ===================================
   GENERAL ELEMENTS
    =================================== */
@@ -137,6 +140,27 @@ button {
 button.primary {
   background-color: var(--color-accent);
   color: var(--color-primary);
+}
+
+button.ghost {
+  background-color: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+span.emphasized {
+  position: relative;
+}
+span.emphasized:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  content: "";
+  display: block;
+  width: 100%;
+  height: 9px;
+  background-color: #654300;
+  z-index: -1;
 }
 
 /* ===================================
@@ -238,10 +262,6 @@ nav ul {
   margin-bottom: var(--spacing-md);
 }
 
-/* #realizari {
-  background-color: #282828;
-} */
-
 /* ===================================
    SECTION STYLES
    =================================== */
@@ -269,6 +289,17 @@ nav ul {
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 /* realizari */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+#realizari {
+  h3.big-description {
+    margin-bottom: 2rem;
+  }
+  button.ghost {
+    margin-bottom: 4rem;
+  }
+  padding: calc(2 * var(--spacing-xl)) 0 0 0;
+  background-color: #121212;
+}
 
 .images {
   display: grid;
@@ -314,21 +345,25 @@ nav ul {
     display: flex;
     flex-direction: column;
     text-align: right;
-    gap: 16px;
+    gap: 15%;
+    padding-top: 6%;
   }
   section:nth-child(3) {
     text-align: left;
     flex-direction: column;
     display: flex;
-    gap: 16px;
+    gap: 15%;
   }
+}
+.vertical-logo {
+  margin: 20px 0;
 }
 
 .testimonials {
   display: flex;
-  gap: 10px;
+  gap: 7%;
   /* grid-template-columns: repeat(3, 1fr); */
-  border: 1px solid;
+  /* border: 1px solid; */
   justify-content: center;
 }
 
@@ -339,17 +374,6 @@ nav ul {
   span {
     position: relative;
     display: inline-block;
-  }
-  span:after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    content: "";
-    display: block;
-    width: 100%;
-    height: 9px;
-    background-color: #654300;
-    z-index: -1;
   }
 }
 
@@ -367,7 +391,7 @@ nav ul {
 }
 
 .lista-experiente figure {
-  border: 1px solid pink;
+  /* border: 1px solid pink; */
   grid-column: span 2;
   max-height: 200px;
   &:nth-child(1) {
@@ -392,6 +416,21 @@ nav ul {
     opacity: 0.5;
   }
 }
+
+.txt {
+  font-family: var(--font-family-primary);
+  background-color: #2e2c2c;
+  padding: 1rem;
+  text-align: left;
+  font-size: 20px;
+  line-height: var(--line-height-tight);
+  span {
+    padding-top: var(--spacing-sm);
+    font-size: 1rem;
+    display: block;
+  }
+}
+
 /* ===================================
    FOOTER
    =================================== */
@@ -500,16 +539,34 @@ h6 {
    =================================== */
 
 .contact-wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  > section {
+    grid-column: span 2;
+    text-align: left;
+    display: flex;
+    gap: var(--spacing-md);
+    flex-direction: column;
+    padding: 0 2rem;
+    span {
+      display: block;
+    }
+  }
+  > form {
+    grid-column: span 2;
+    width: 100%;
+  }
 }
 
 #contact {
   margin: 0 auto;
-  padding: var(--spacing-lg);
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
+  text-align: left;
 }
 
 .form-group {
   margin-bottom: var(--spacing-md);
+  text-align: left;
 }
 
 .form-group label {
@@ -522,19 +579,22 @@ h6 {
 
 .form-group input,
 .form-group textarea {
+  background: none;
   width: 100%;
   padding: var(--spacing-sm);
-  border: 2px solid #e0e0e0;
+  border: 1px solid var(--color-accent);
   border-radius: var(--border-radius);
   font-family: var(--font-family-secondary);
   font-size: var(--font-size-base);
   transition: border-color var(--transition-fast);
+  color: var(--color-text);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--color-accent);
+  box-shadow: 0px 0px 0px 3px var(--color-accent);
 }
 
 /* Radio group styling */
@@ -577,7 +637,7 @@ legend {
 }
 
 /* Submit button */
-.btn-submit {
+/* .btn-submit {
   background-color: var(--color-primary);
   color: white;
   border: none;
@@ -589,19 +649,19 @@ legend {
   cursor: pointer;
   transition: background-color var(--transition-fast);
   width: 100%;
-}
+} */
 
-.btn-submit:hover {
+/* .btn-submit:hover {
   background-color: var(--color-secondary);
-}
+} */
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  #contact {
+  /* #contact {
     padding: var(--spacing-sm);
   }
 
   .radio-group {
     gap: var(--spacing-xs);
-  }
+  } */
 }
