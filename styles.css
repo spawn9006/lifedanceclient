@@ -39,6 +39,8 @@
   /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-medium: 0.3s ease;
+
+  --main-breakpoint: 967px;
 }
 
 /* ===================================
@@ -119,6 +121,11 @@ html {
     left: 50%;
     transform: translateX(-50%);
   }
+  @media (max-width: 967px) {
+    padding: 0 30px;
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+  }
 }
 h3.big-description {
   font-size: var(--font-size-large);
@@ -170,7 +177,7 @@ span.emphasized:after {
   width: 100%;
   max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 var(--spacing-sm);
+  padding: 0 var(--spacing-xl);
 }
 
 /* ===================================
@@ -248,6 +255,9 @@ nav ul {
   line-height: var(--line-height-tight);
   margin-bottom: var(--spacing-md);
   color: var(--color-primary);
+  @media (max-width: 967px) {
+    font-size: 8vw;
+  }
 }
 
 .section__text {
@@ -272,6 +282,7 @@ nav ul {
   background-size: cover;
   background-position: center 25%;
   background-repeat: no-repeat;
+  min-height: 80vh;
   .container {
     max-width: 880px;
   }
@@ -293,12 +304,15 @@ nav ul {
 #realizari {
   h3.big-description {
     margin-bottom: 2rem;
+    @media (max-width: 967px) {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
   }
   button.ghost {
     margin-bottom: 4rem;
   }
   padding: calc(2 * var(--spacing-xl)) 0 0 0;
-  background-color: #121212;
 }
 
 .images {
@@ -346,6 +360,9 @@ nav ul {
     flex-direction: column;
     text-align: right;
     gap: 15%;
+    @media (max-width: 967px) {
+      gap: 2rem;
+    }
     padding-top: 6%;
   }
   section:nth-child(3) {
@@ -353,6 +370,9 @@ nav ul {
     flex-direction: column;
     display: flex;
     gap: 15%;
+    @media (max-width: 967px) {
+      gap: 2rem;
+    }
   }
 }
 .vertical-logo {
@@ -362,15 +382,21 @@ nav ul {
 .testimonials {
   display: flex;
   gap: 7%;
-  /* grid-template-columns: repeat(3, 1fr); */
-  /* border: 1px solid; */
   justify-content: center;
+  @media (max-width: 967px) {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
 }
 
 .testimonial-item {
   line-height: var(--line-height-tight);
   font-family: var(--font-family-primary);
   max-width: 370px;
+  @media (max-width: 967px) {
+    text-align: center;
+  }
   span {
     position: relative;
     display: inline-block;
@@ -380,31 +406,38 @@ nav ul {
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 /* experiente */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-
 .lista-experiente {
-  margin-left: -15vw;
-  margin-right: -15vw;
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(9, 1fr);
-  grid-template-rows: repeat(3, 1fr);
 }
+.lista-experiente figure.img {
+  max-height: 180px;
+}
+@media (min-width: 967px) {
+  .lista-experiente {
+    margin-left: -15vw;
+    margin-right: -15vw;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
 
-.lista-experiente figure {
-  /* border: 1px solid pink; */
-  grid-column: span 2;
-  max-height: 200px;
-  &:nth-child(1) {
-    grid-column: 2 / 4;
-  }
-  &:nth-child(5) {
-    grid-column: 1 / 3;
-  }
-  &:nth-child(9) {
-    grid-column: 2 / 4;
+  .lista-experiente figure {
+    /* border: 1px solid pink; */
+    grid-column: span 2;
+    max-height: 200px;
+    &:nth-child(1) {
+      grid-column: 2 / 4;
+    }
+    &:nth-child(5) {
+      grid-column: 1 / 3;
+    }
+    &:nth-child(9) {
+      grid-column: 2 / 4;
+    }
   }
 }
-
 .lista-experiente figure.img {
   overflow: hidden;
   position: relative;
@@ -468,28 +501,6 @@ nav ul {
   }
 }
 
-/* Desktop styles */
-@media (min-width: 1024px) {
-  .nav__toggle {
-    display: none;
-  }
-
-  .section--hero {
-    min-height: 80vh;
-  }
-
-  .section__title {
-    font-size: 3.5rem;
-  }
-}
-
-/* Large desktop styles */
-@media (min-width: 1200px) {
-  .container {
-    padding: 0 var(--spacing-xl);
-  }
-}
-
 /* Font family utilities */
 .font-primary {
   font-family: var(--font-family-primary);
@@ -539,8 +550,10 @@ h6 {
    =================================== */
 
 .contact-wrapper {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  @media (min-width: 967px) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
   > section {
     grid-column: span 2;
     text-align: left;
@@ -562,6 +575,12 @@ h6 {
   margin: 0 auto;
   padding: 0 var(--spacing-lg) var(--spacing-lg);
   text-align: left;
+}
+
+#contact .container {
+  @media (max-width: 967px) {
+    padding: 0;
+  }
 }
 
 .form-group {
