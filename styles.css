@@ -684,3 +684,30 @@ legend {
     gap: var(--spacing-xs);
   } */
 }
+
+/* Add these styles for the scrolled navigation */
+.nav {
+  transition: all 0.3s ease;
+}
+
+.nav--scrolled {
+  background-color: rgba(
+    18,
+    18,
+    18,
+    0.95
+  ); /* Semi-transparent dark background */
+  backdrop-filter: blur(10px); /* Blur effect behind nav */
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Optional: Change text color when scrolled */
+.nav--scrolled .nav-left a,
+.nav--scrolled .nav-right a {
+  color: var(--color-text);
+}
+
+/* Optional: Smaller padding when scrolled */
+.nav--scrolled .nav__container {
+  padding: var(--spacing-xs) var(--spacing-sm);
+}

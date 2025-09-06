@@ -18,4 +18,33 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Mobile menu toggled");
     });
   }
+
+  // Navigation scroll effect
+  const nav = document.querySelector(".nav");
+  let lastScrollY = window.scrollY;
+
+  function handleNavScroll() {
+    const currentScrollY = window.scrollY;
+
+    // Add class when scrolled down more than 50px
+    if (currentScrollY > 50) {
+      nav.classList.add("nav--scrolled");
+    } else {
+      nav.classList.remove("nav--scrolled");
+    }
+
+    lastScrollY = currentScrollY;
+  }
+
+  // Add scroll event listener with throttling for performance
+  let scrollTimeout;
+  window.addEventListener("scroll", function () {
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    scrollTimeout = setTimeout(handleNavScroll, 10);
+  });
+
+  // Call once on load to set initial state
+  handleNavScroll();
 });
