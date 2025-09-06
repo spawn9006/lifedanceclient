@@ -288,6 +288,7 @@ nav ul {
    SECTION STYLES
    =================================== */
 .section--hero {
+  position: relative;
   color: white;
   border-image: fill 1 linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.58));
   background-image: url("./assets/img/hero.jpg");
@@ -309,6 +310,12 @@ nav ul {
   color: white;
 }
 
+.logo {
+  position: absolute;
+  top: 3vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 /* realizari */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
