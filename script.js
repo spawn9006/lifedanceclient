@@ -87,8 +87,8 @@ function setupCarouselClasses(images) {
 }
 
 function startCarouselRotation(images, figureIndex) {
-  // Random interval between 3-5 seconds for each figure
-  const rotationInterval = 3000 + Math.random() * 2000;
+  // Increase interval - now between 6-10 seconds for each figure
+  const rotationInterval = 6000 + Math.random() * 4000;
 
   setInterval(() => {
     rotateCarouselClasses(images);
@@ -105,13 +105,21 @@ function rotateCarouselClasses(images) {
   const nextImg = images.find((img) => img.classList.contains("next"));
   const prevImg = images.find((img) => img.classList.contains("prev"));
 
-  // Remove all position classes
+  // Step 1: Hide the image that will reposition
+  prevImg.classList.add("repositioning");
+
+  // Step 2: Remove position classes
   images.forEach((img) => {
     img.classList.remove("showing", "next", "prev");
   });
 
-  // Rotate classes clockwise
-  showingImg.classList.add("prev"); // showing → prev (slides left)
+  // Step 3: Add new position classes
   nextImg.classList.add("showing"); // next → showing (slides to center)
-  prevImg.classList.add("next"); // prev → next (slides to right)
+  showingImg.classList.add("prev"); // showing → prev (slides left)
+  prevImg.classList.add("next"); // prev → next (repositions invisibly)
+
+  // Step 4: After repositioning, show the image again
+  setTimeout(() => {
+    prevImg.classList.remove("repositioning");
+  }, 150);
 }
