@@ -53,27 +53,42 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function initImageCarousels() {
+  // Handle realizari section
   const realizariSection = document.querySelector("#realizari");
-  if (!realizariSection) return;
+  if (realizariSection) {
+    const imagesSection = realizariSection.querySelector(".images");
+    if (imagesSection) {
+      const figures = imagesSection.querySelectorAll("figure");
+      console.log(`Found ${figures.length} carousel figures in realizari`);
 
-  const imagesSection = realizariSection.querySelector(".images");
-  if (!imagesSection) return;
+      figures.forEach((figure, figureIndex) => {
+        const images = Array.from(figure.querySelectorAll("img"));
+        if (images.length < 3) return;
 
-  const figures = imagesSection.querySelectorAll("figure");
-  console.log(`Found ${figures.length} carousel figures`);
+        console.log(`Setting up realizari carousel for figure ${figureIndex}`);
+        setupCarouselClasses(images);
+        startCarouselRotation(images, `realizari-${figureIndex}`);
+      });
+    }
+  }
 
-  figures.forEach((figure, figureIndex) => {
-    const images = Array.from(figure.querySelectorAll("img"));
-    if (images.length < 3) return; // Skip if not 3 images
+  // Handle lista-experiente section
+  const experienceSection = document.querySelector(".lista-experiente");
+  if (experienceSection) {
+    const imgFigures = experienceSection.querySelectorAll("figure.img");
+    console.log(
+      `Found ${imgFigures.length} carousel figures in lista-experiente`
+    );
 
-    console.log(`Setting up carousel for figure ${figureIndex}`);
+    imgFigures.forEach((figure, figureIndex) => {
+      const images = Array.from(figure.querySelectorAll("img"));
+      if (images.length < 3) return;
 
-    // Setup initial classes
-    setupCarouselClasses(images);
-
-    // Start carousel rotation
-    startCarouselRotation(images, figureIndex);
-  });
+      console.log(`Setting up experience carousel for figure ${figureIndex}`);
+      setupCarouselClasses(images);
+      startCarouselRotation(images, `experience-${figureIndex}`);
+    });
+  }
 }
 
 function setupCarouselClasses(images) {
@@ -86,7 +101,7 @@ function setupCarouselClasses(images) {
   images[2].classList.add("prev"); // Third image to the left
 }
 
-function startCarouselRotation(images, figureIndex) {
+function startCarouselRotation(images, figureIdentifier) {
   // Increase interval - now between 6-10 seconds for each figure
   const rotationInterval = 6000 + Math.random() * 4000;
 
@@ -95,7 +110,7 @@ function startCarouselRotation(images, figureIndex) {
   }, rotationInterval);
 
   console.log(
-    `Figure ${figureIndex} carousel started with ${rotationInterval}ms interval`
+    `Figure ${figureIdentifier} carousel started with ${rotationInterval}ms interval`
   );
 }
 

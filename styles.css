@@ -714,8 +714,11 @@ legend {
 
 /* Add these carousel styles */
 
-/* Figure container setup */
-#realizari .images figure {
+/* Update carousel styles to apply to both sections */
+
+/* Figure container setup for both sections */
+#realizari .images figure,
+.lista-experiente figure.img {
   position: relative;
   overflow: hidden;
 }
