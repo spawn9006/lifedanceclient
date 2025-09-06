@@ -312,9 +312,12 @@ nav ul {
 
 .logo {
   position: absolute;
-  top: 3vh;
+  top: 5vh;
   left: 50%;
   transform: translateX(-50%);
+  @media (max-width: 967px) {
+    top: 8vh;
+  }
 }
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 /* realizari */
@@ -429,8 +432,8 @@ nav ul {
   display: grid;
   gap: 10px;
 }
-.lista-experiente figure.img {
-  max-height: 180px;
+.lista-experiente figure {
+  height: 180px;
 }
 @media (min-width: 967px) {
   .lista-experiente {
@@ -465,7 +468,6 @@ nav ul {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    opacity: 0.5;
   }
 }
 
