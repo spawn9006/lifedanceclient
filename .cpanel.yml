@@ -4,6 +4,7 @@ deployment:
     - export DEPLOYPATH=/home/oukygmkd/public_html
     - /bin/rm -rf ${DEPLOYPATH}/*
     - /bin/cp -R assets ${DEPLOYPATH}/
+    - /bin/cp -R api ${DEPLOYPATH}/
     - /bin/cp index.html ${DEPLOYPATH}/
     - /bin/cp styles.css ${DEPLOYPATH}/
     - /bin/cp script.js ${DEPLOYPATH}/
