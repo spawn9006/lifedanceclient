@@ -299,6 +299,11 @@ nav ul {
   .container {
     max-width: 880px;
   }
+
+    .vreau-sa-dansez a {
+        color: var(--color-primary);
+        text-decoration: none;
+    }
 }
 
 .section--team {
@@ -491,12 +496,17 @@ nav ul {
 .footer {
   background-color: var(--color-primary);
   color: white;
-  text-align: center;
   padding: var(--spacing-lg) 0;
 }
 
 .footer p {
-  font-size: var(--font-size-small);
+    padding-left: 20px;
+    font-size: var(--font-size-small);
+}
+
+.footer .developed-by a {
+    color: white;
+    text-decoration: none;
 }
 
 /* ===================================
