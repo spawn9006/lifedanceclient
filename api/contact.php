@@ -78,12 +78,10 @@ try {
   $m->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
   $m->Port       = (int)($env['SMTP_PORT'] ?? 587);
 
-  $m->setFrom($env['FROM_EMAIL'], 'Form Website');
+  $m->setFrom($env['FROM_EMAIL'], 'LifeIsDance - Formular contact');
   foreach (explode(',', $env['TO_EMAIL']) as $addr) {
-      $addr = trim($addr);
-      if ($addr !== '') {
-          $m->addAddress($addr);
-      }
+    $addr = trim($addr);
+    if ($addr !== '') { $m->addAddress($addr); }
   }
   $m->addReplyTo($email, $nume);
 
@@ -91,8 +89,16 @@ try {
   $m->Body    = $body;
 
   $m->send();
-  echo json_encode(['ok'=>true]);
+
+  // --- important for FE ---
+  header('Content-Type: application/json; charset=utf-8');
+  http_response_code(200);
+  echo json_encode(['ok' => true]);
+  exit;
+
 } catch (Exception $e) {
+  header('Content-Type: application/json; charset=utf-8');
   http_response_code(500);
-  echo json_encode(['ok'=>false,'error'=>$m->ErrorInfo ?: 'Eroare necunoscută']);
+  echo json_encode(['ok' => false, 'error' => ($m->ErrorInfo ?: 'Eroare necunoscută')]);
+  exit;
 }
