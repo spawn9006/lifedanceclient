@@ -2,29 +2,10 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/oukygmkd/public_html
-    - export SRC="$PWD"  # cPanel runs tasks from repo root; keep a handle
-
-    # Compute VERSION safely (run git IN the repo; use absolute binaries)
-    - export GIT="/usr/local/cpanel/3rdparty/bin/git"
-    - export VERSION="$(${GIT} -C \"${SRC}\" rev-parse --short HEAD)-$(/bin/date +%Y%m%d%H%M%S)"
-    - /bin/echo "Deploy VERSION=${VERSION}"
-
-    # Clean destination (keep what you need; comment lines if debugging)
-    - /bin/rm -rf "${DEPLOYPATH:?}"/*
-
-    # Copy assets
-    - /bin/cp -R assets "${DEPLOYPATH}/"
-    - /bin/cp -R api "${DEPLOYPATH}/"
-    - /bin/cp index.html "${DEPLOYPATH}/"
-    - /bin/cp styles.css "${DEPLOYPATH}/"
-    - /bin/cp script.js "${DEPLOYPATH}/"
-    - /bin/cp contact.js "${DEPLOYPATH}/"
-
-    # Inject VERSION into HTML (only files that contain @@VERSION@@)
-    - /bin/sed -i -e "s/@@VERSION@@/${VERSION}/g" "${DEPLOYPATH}/index.html"
-
-    # OPTIONAL: if you have multiple HTML files, use find (safe, absolute paths)
-    # - /usr/bin/find "${DEPLOYPATH}" -type f -name "*.html" -exec /bin/sed -i -e "s/@@VERSION@@/${VERSION}/g" {} \;
-
-    # Log done
-    - /bin/echo "Deploy complete."
+    - /bin/rm -rf ${DEPLOYPATH}/*
+    - /bin/cp -R assets ${DEPLOYPATH}/
+    - /bin/cp -R api ${DEPLOYPATH}/
+    - /bin/cp index.html ${DEPLOYPATH}/
+    - /bin/cp styles.css ${DEPLOYPATH}/
+    - /bin/cp script.js ${DEPLOYPATH}/
+    - /bin/cp contact.js ${DEPLOYPATH}/
