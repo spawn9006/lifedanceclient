@@ -79,7 +79,12 @@ try {
   $m->Port       = (int)($env['SMTP_PORT'] ?? 587);
 
   $m->setFrom($env['FROM_EMAIL'], 'Form Website');
-  $m->addAddress($env['TO_EMAIL']);
+  foreach (explode(',', $env['TO_EMAIL']) as $addr) {
+      $addr = trim($addr);
+      if ($addr !== '') {
+          $m->addAddress($addr);
+      }
+  }
   $m->addReplyTo($email, $nume);
 
   $m->Subject = $subject;
