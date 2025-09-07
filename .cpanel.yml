@@ -1,0 +1,8 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/oukygmkd/public_html
+    - /usr/bin/rsync -a --delete \
+      --exclude='.git/' --exclude='.gitignore' \
+      --exclude='.cpanel.yml' --exclude='README.md' \
+      ./ ${DEPLOYPATH}/
