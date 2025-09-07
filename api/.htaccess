@@ -1,8 +1,14 @@
-\
 Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Permite doar POST și OPTIONS (altfel 403)
+  RewriteCond %{REQUEST_METHOD} !^(POST|OPTIONS)$
+  RewriteRule ^ - [F]
+</IfModule>
+
 <IfModule mod_headers.c>
   Header always set Access-Control-Allow-Origin "https://lifeisdance.ro"
+  Header always set Access-Control-Allow-Methods "POST, OPTIONS"
+  Header always set Access-Control-Allow-Headers "Content-Type"
 </IfModule>
-<LimitExcept POST OPTIONS>
-  Deny from all
-</LimitExcept>
