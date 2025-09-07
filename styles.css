@@ -647,6 +647,11 @@ h6 {
   box-shadow: 0px 0px 0px 3px var(--color-accent);
 }
 
+.form-message { font-size: .95rem; }
+.form-message.is-success { color: #1a7f37; } /* verde */
+.form-message.is-error { color: #c62828; }   /* roșu */
+button[disabled] { opacity: .6; cursor: not-allowed; }
+
 /* Radio group styling */
 fieldset {
   border: none;
