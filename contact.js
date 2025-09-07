@@ -11,7 +11,7 @@ function setMsg(el, text, type = 'info') {
     el.textContent = text || '';
     el.classList.remove('is-success', 'is-error', 'is-info');
     el.classList.add(type === 'success' ? 'is-success'
-        : type === 'error' ? 'is-error'
+        : type === 'error'   ? 'is-error'
             : 'is-info');
 }
 
@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const msg = document.getElementById('form-message');
     const submitBtn = form.querySelector('button[type="submit"]');
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
 
         if (typeof grecaptcha === 'undefined') {
@@ -30,6 +30,7 @@ window.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // lock UI
         if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.dataset._label = submitBtn.textContent;
@@ -37,47 +38,81 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         setMsg(msg, 'Se trimite mesajul...', 'info');
 
-        grecaptcha.ready(async function() {
+        grecaptcha.ready(async () => {
+            // 1) Obține tokenul în siguranță
+            let token = '';
             try {
-                const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: RECAPTCHA_ACTION });
-
-                // Folosim FormData ca să evităm application/json (reduce preflight & false-positives ModSecurity)
-                const fd = new FormData();
-                fd.append('nume', document.getElementById('nume')?.value || '');
-                fd.append('contact-preference', document.querySelector('input[name="contact-preference"]:checked')?.value || '');
-                fd.append('telefon', document.getElementById('telefon')?.value || '');
-                fd.append('email', document.getElementById('email')?.value || '');
-                fd.append('mesaj', document.getElementById('mesaj')?.value || '');
-                fd.append('recaptcha_token', token);
-                fd.append('recaptcha_action', RECAPTCHA_ACTION);
-
-                const res = await fetch('/api/contact.php', {
-                    method: 'POST',
-                    // !!! nu setăm manual Content-Type; browserul pune multipart/form-data
-                    body: fd,
-                    // mode: 'same-origin' // (opțional) dacă vrei să fii explicit
-                });
-
-                // Uneori ModSecurity răspunde cu HTML (403). Încercăm JSON, altfel text.
-                const ct = res.headers.get('content-type') || '';
-                const isJSON = ct.includes('application/json');
-                const out = isJSON ? await res.json().catch(() => ({})) : { ok: false, error: await res.text() };
-
-                if (res.ok && out.ok) {
-                    setMsg(msg, 'Mulțumim! Mesajul a fost trimis cu succes.', 'success');
-                    form.reset();
-                } else {
-                    const err = (out && out.error) ? String(out.error) : 'Nu s-a putut trimite mesajul.';
-                    setMsg(msg, `Eroare: ${err}`, 'error');
-                }
+                token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: RECAPTCHA_ACTION });
             } catch (err) {
-                setMsg(msg, 'Eroare de rețea sau reCAPTCHA. Încearcă din nou.', 'error');
-            } finally {
+                console.error('reCAPTCHA error:', err);
+                setMsg(msg, 'reCAPTCHA nu a putut fi inițializat. Reîncarcă pagina și încearcă din nou.', 'error');
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.textContent = submitBtn.dataset._label || 'Trimite';
                     delete submitBtn.dataset._label;
                 }
+                return;
+            }
+
+            // 2) Construiește payload-ul ca FormData (evită preflight/WAF)
+            const fd = new FormData();
+            fd.append('nume', document.getElementById('nume')?.value || '');
+            fd.append('contact-preference', document.querySelector('input[name="contact-preference"]:checked')?.value || '');
+            fd.append('telefon', document.getElementById('telefon')?.value || '');
+            fd.append('email', document.getElementById('email')?.value || '');
+            fd.append('mesaj', document.getElementById('mesaj')?.value || '');
+            fd.append('recaptcha_token', token);
+            fd.append('recaptcha_action', RECAPTCHA_ACTION);
+
+            // 3) Trimite request-ul (URL absolut pentru a evita probleme www/non-www)
+            let res;
+            try {
+                res = await fetch(`${window.location.origin}/api/contact.php`, {
+                    method: 'POST',
+                    body: fd
+                });
+            } catch (err) {
+                console.error('fetch network error:', err);
+                setMsg(msg, 'Conexiunea a eșuat. Verifică internetul și încearcă din nou.', 'error');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = submitBtn.dataset._label || 'Trimite';
+                    delete submitBtn.dataset._label;
+                }
+                return;
+            }
+
+            // 4) Citește răspunsul safe (mai întâi text, apoi încearcă JSON)
+            let text = '';
+            try { text = await res.text(); } catch { text = ''; }
+
+            let out = {};
+            try { out = text ? JSON.parse(text) : {}; }
+            catch {
+                out = { ok: false, error: `Răspuns neașteptat (HTTP ${res.status}): ${text.slice(0, 200)}` };
+            }
+
+            // 5) Afișează rezultatul
+            if (res.ok && out && out.ok) {
+                setMsg(msg, 'Mulțumim! Mesajul a fost trimis cu succes.', 'success');
+                form.reset();
+            } else {
+                const errMsg =
+                    (out && out.error) ? String(out.error) :
+                        (res.ok ? 'Răspuns neașteptat de la server.' : `Eroare server (HTTP ${res.status}).`);
+                setMsg(msg, `Eroare: ${errMsg}`, 'error');
+                console.debug('Response debug:', {
+                    status: res.status,
+                    headers: Object.fromEntries(res.headers.entries()),
+                    bodyPreview: text.slice(0, 300)
+                });
+            }
+
+            // 6) Deblochează UI
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = submitBtn.dataset._label || 'Trimite';
+                delete submitBtn.dataset._label;
             }
         });
     });
