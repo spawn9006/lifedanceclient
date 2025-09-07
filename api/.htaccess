@@ -1,0 +1,8 @@
+\
+Options -Indexes
+<IfModule mod_headers.c>
+  Header always set Access-Control-Allow-Origin "https://lifeisdance.ro"
+</IfModule>
+<LimitExcept POST OPTIONS>
+  Deny from all
+</LimitExcept>

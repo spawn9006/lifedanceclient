@@ -138,3 +138,29 @@ function rotateCarouselClasses(images) {
     prevImg.classList.remove("repositioning");
   }, 150);
 }
+
+document.getElementById('contact')
+    .addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const data = {
+        nume: document.getElementById('nume').value,
+        preference: document.querySelector('input[name="contact-preference"]:checked')?.value,
+        telefon: document.getElementById('telefon').value,
+        email: document.getElementById('email').value,
+        mesaj: document.getElementById('mesaj').value
+    };
+
+    const res = await fetch("https://formspree.io/f/XYZabcd", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+        alert("Mulțumim! Mesajul a fost trimis.");
+        e.target.reset();
+    } else {
+        alert("Ups, ceva nu a mers. Încearcă din nou sau scrie-ne direct pe email.");
+    }
+});

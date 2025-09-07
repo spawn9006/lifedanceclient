@@ -1,0 +1,1 @@
+Upload PHPMailer.php, SMTP.php, Exception.php from PHPMailer/src into this folder.
