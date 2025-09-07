@@ -30,7 +30,6 @@ window.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // locking UI
         if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.dataset._label = submitBtn.textContent;
@@ -42,29 +41,33 @@ window.addEventListener('DOMContentLoaded', () => {
             try {
                 const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: RECAPTCHA_ACTION });
 
-                const payload = {
-                    nume: document.getElementById('nume')?.value || '',
-                    'contact-preference': document.querySelector('input[name="contact-preference"]:checked')?.value || '',
-                    telefon: document.getElementById('telefon')?.value || '',
-                    email: document.getElementById('email')?.value || '',
-                    mesaj: document.getElementById('mesaj')?.value || '',
-                    recaptcha_token: token,
-                    recaptcha_action: RECAPTCHA_ACTION,
-                };
+                // Folosim FormData ca să evităm application/json (reduce preflight & false-positives ModSecurity)
+                const fd = new FormData();
+                fd.append('nume', document.getElementById('nume')?.value || '');
+                fd.append('contact-preference', document.querySelector('input[name="contact-preference"]:checked')?.value || '');
+                fd.append('telefon', document.getElementById('telefon')?.value || '');
+                fd.append('email', document.getElementById('email')?.value || '');
+                fd.append('mesaj', document.getElementById('mesaj')?.value || '');
+                fd.append('recaptcha_token', token);
+                fd.append('recaptcha_action', RECAPTCHA_ACTION);
 
                 const res = await fetch('/api/contact.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    // !!! nu setăm manual Content-Type; browserul pune multipart/form-data
+                    body: fd,
+                    // mode: 'same-origin' // (opțional) dacă vrei să fii explicit
                 });
 
-                const out = await res.json().catch(() => ({}));
+                // Uneori ModSecurity răspunde cu HTML (403). Încercăm JSON, altfel text.
+                const ct = res.headers.get('content-type') || '';
+                const isJSON = ct.includes('application/json');
+                const out = isJSON ? await res.json().catch(() => ({})) : { ok: false, error: await res.text() };
 
                 if (res.ok && out.ok) {
                     setMsg(msg, 'Mulțumim! Mesajul a fost trimis cu succes.', 'success');
                     form.reset();
                 } else {
-                    const err = out?.error || 'Nu s-a putut trimite mesajul. Încearcă din nou.';
+                    const err = (out && out.error) ? String(out.error) : 'Nu s-a putut trimite mesajul.';
                     setMsg(msg, `Eroare: ${err}`, 'error');
                 }
             } catch (err) {
