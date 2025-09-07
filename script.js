@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
       menuToggle.classList.toggle("nav__toggle--active");
 
       // You can add mobile menu functionality here later
-      console.log("Mobile menu toggled");
+      // console.log("Mobile menu toggled");
     });
   }
 
@@ -59,13 +59,13 @@ function initImageCarousels() {
     const imagesSection = realizariSection.querySelector(".images");
     if (imagesSection) {
       const figures = imagesSection.querySelectorAll("figure");
-      console.log(`Found ${figures.length} carousel figures in realizari`);
+      // console.log(`Found ${figures.length} carousel figures in realizari`);
 
       figures.forEach((figure, figureIndex) => {
         const images = Array.from(figure.querySelectorAll("img"));
         if (images.length < 3) return;
 
-        console.log(`Setting up realizari carousel for figure ${figureIndex}`);
+        // console.log(`Setting up realizari carousel for figure ${figureIndex}`);
         setupCarouselClasses(images);
         startCarouselRotation(images, `realizari-${figureIndex}`);
       });
@@ -76,15 +76,15 @@ function initImageCarousels() {
   const experienceSection = document.querySelector(".lista-experiente");
   if (experienceSection) {
     const imgFigures = experienceSection.querySelectorAll("figure.img");
-    console.log(
-      `Found ${imgFigures.length} carousel figures in lista-experiente`
-    );
+    // console.log(
+    //   `Found ${imgFigures.length} carousel figures in lista-experiente`
+    // );
 
     imgFigures.forEach((figure, figureIndex) => {
       const images = Array.from(figure.querySelectorAll("img"));
       if (images.length < 3) return;
 
-      console.log(`Setting up experience carousel for figure ${figureIndex}`);
+      // console.log(`Setting up experience carousel for figure ${figureIndex}`);
       setupCarouselClasses(images);
       startCarouselRotation(images, `experience-${figureIndex}`);
     });
@@ -109,9 +109,9 @@ function startCarouselRotation(images, figureIdentifier) {
     rotateCarouselClasses(images);
   }, rotationInterval);
 
-  console.log(
-    `Figure ${figureIdentifier} carousel started with ${rotationInterval}ms interval`
-  );
+  // console.log(
+  //   `Figure ${figureIdentifier} carousel started with ${rotationInterval}ms interval`
+  // );
 }
 
 function rotateCarouselClasses(images) {
@@ -138,29 +138,3 @@ function rotateCarouselClasses(images) {
     prevImg.classList.remove("repositioning");
   }, 150);
 }
-
-document.getElementById('contact')
-    .addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const data = {
-        nume: document.getElementById('nume').value,
-        preference: document.querySelector('input[name="contact-preference"]:checked')?.value,
-        telefon: document.getElementById('telefon').value,
-        email: document.getElementById('email').value,
-        mesaj: document.getElementById('mesaj').value
-    };
-
-    const res = await fetch("https://formspree.io/f/XYZabcd", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-    });
-
-    if (res.ok) {
-        alert("Mulțumim! Mesajul a fost trimis.");
-        e.target.reset();
-    } else {
-        alert("Ups, ceva nu a mers. Încearcă din nou sau scrie-ne direct pe email.");
-    }
-});
