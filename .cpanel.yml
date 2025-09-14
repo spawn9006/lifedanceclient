@@ -11,6 +11,6 @@ deployment:
 
     # copy top-level files
     - /bin/cp index.html ${DEPLOYPATH}/
-    - /bin/cp styles.css ${DEPLOYPATH}/
+    - /bin/cp styles1.css ${DEPLOYPATH}/
     - /bin/cp script.js ${DEPLOYPATH}/
     - /bin/cp contact.js ${DEPLOYPATH}/
