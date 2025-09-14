@@ -1,23 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Life is dance</title>
-    <meta name="description"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="robots" content="index, follow, max-image-preview:large"/>
+    <meta name="language" content="ro"/>
+    <meta name="theme-color" content="#000000"/>
+    <link rel="canonical" href="https://lifeisdance.ro/"/>
+    <link rel="alternate" href="https://lifeisdance.ro/" hreflang="ro"/>
+    <link rel="alternate" href="https://lifeisdance.ro/" hreflang="x-default"/>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles.css"/>
-    <link rel="icon" href="assets/favicon.svg" type="image/x-icon">
+    <title>Life is Dance – Cursuri de dans sportiv pentru copii și adulți în Alba Iulia</title>
+    <meta name="description" content="Life is Dance – școală de dans sportiv în Alba Iulia, condusă de antrenori de top WDSF. Oferim cursuri pentru copii, adulți, seniori și dansul mirilor. Înscrieri acum!"/>
+    <meta name="keywords" content="școală de dans Alba Iulia, cursuri dans copii, cursuri dans adulți, dansul mirilor, dans sportiv, antrenori WDSF"/>
 
-    <!-- Preload critical resources (optional, for performance) -->
+    <!-- Open Graph / Facebook / Instagram -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="Life is Dance"/>
+    <meta property="og:url" content="https://lifeisdance.ro/"/>
+    <meta property="og:title" content="Life is Dance – Școală de dans sportiv în Alba Iulia"/>
+    <meta property="og:description" content="Cursuri pentru copii, adulți, seniori și viitorii miri. Instructori cu rezultate internaționale WDSF. Înscrieri la Life is Dance."/>
+    <meta property="og:image" content="https://lifeisdance.ro/assets/og-image.jpg"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta property="og:image:alt" content="Life is Dance – școală de dans sportiv în Alba Iulia"/>
+
+    <!-- Favicon / fonts -->
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
-            rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 
+    <!-- Schema.org: DanceSchool -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "DanceSchool",
+            "name": "Life is Dance",
+            "url": "https://lifeisdance.ro/",
+            "description": "Școală de dans sportiv în Alba Iulia cu antrenori de top WDSF. Cursuri pentru copii, adulți și dansul mirilor.",
+            "image": "https://lifeisdance.ro/assets/og-image.jpg",
+            "logo": "https://lifeisdance.ro/assets/logo.png",
+            "priceRange": "€€",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Bulevardul Ferdinand 13",
+                "addressLocality": "Alba Iulia",
+                "addressRegion": "Alba",
+                "addressCountry": "RO"
+            },
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "46.072",
+                "longitude": "23.574"
+            },
+            "byAppointmentOnly": true,
+            "openingHoursSpecification": [{
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+                "opens": "08:00",
+                "closes": "22:00"
+            }],
+            "sameAs": [
+                "https://www.facebook.com/dansalbaiulia",
+                "https://www.instagram.com/life_is_dance17/"
+            ],
+            "makesOffer": {
+                "@type": "OfferCatalog",
+                "name": "Programe Life is Dance",
+                "itemListElement": [
+                    { "@type": "Offer", "name": "Cursuri de dans pentru copii (4–7 ani, 7+)" },
+                    { "@type": "Offer", "name": "Cursuri de dans sportiv – hobby" },
+                    { "@type": "Offer", "name": "Dans sportiv de performanță (WDSF)" },
+                    { "@type": "Offer", "name": "Dansul mirilor" },
+                    { "@type": "Offer", "name": "Cursuri pentru adulți și seniori" },
+                    { "@type": "Offer", "name": "Show-uri și spectacole de dans pentru evenimente" }
+                ]
+            }
+        }
+    </script>
+
+    <!-- CSS & JS existente -->
+    <link rel="stylesheet" href="styles.css"/>
     <script src="https://www.google.com/recaptcha/api.js?render=6LdOVMErAAAAAP7IlGaEZb5d9d1HsstsXLnX7zHz"></script>
     <script src="contact.js" defer></script>
 </head>
@@ -29,13 +94,14 @@
                 <ul>
                     <!--              <li><a href="">Media</a></li>-->
                     <li><a href="#realizari">Cine Suntem?</a></li>
-                    <!--              <li><a href="">Servicii</a></li>-->
+                    <li><a href="#servicii">Servicii</a></li>
                 </ul>
             </div>
             <div class="nav-right">
                 <ul>
                     <!--              <li><a href="#">Blog</a></li>-->
                     <li><a href="#contact-form">Contact</a></li>
+                    <li><a href="#harta">Harta</a></li>
                 </ul>
             </div>
 
@@ -95,10 +161,10 @@
                 <span class="emphasized">Top 3 Mondial</span> in World Ranking List
                 Professional Division <br/>
                 Locul 2 la emisiunea
-                <span class="emphasized">"Dansez pentru tine"</span>
+                <span class="emphasized">"Dansez pentru tine”</span>
             </h3>
 
-            <button class="ghost">Vezi toate realizarile...</button>
+            <button class="ghost">Vezi toate realizările...</button>
             <section class="images">
                 <figure class="image1">
                     <img loading="lazy"
@@ -164,9 +230,8 @@
                         <span class="emphasized">Lotul National al Romaniei</span>
                     </div>
                     <div class="testimonial-item">
-                        Life is Dance este locul ideal unde copiii, tinerii ,adultii,
-                        seniorii pot
-                        <span class="emphasized">sa invete sa danseze</span>
+                        Life is Dance este locul ideal unde copiii, tinerii ,adulții si seniorii pot
+                        <span class="emphasized">sa învețe sa danseze</span>
                     </div>
                 </section>
                 <section class="vertical-logo">
@@ -212,14 +277,16 @@
                          decoding="async" src="/assets/img/experiente/img03.png" alt=""/>
                 </figure>
                 <figure class="txt">
-                    "Școala de dans este locul unde copilul meu a învățat să se
-                    exprime liber și să-și dezvolte încrederea în sine."
-                    <span>Andrea Popescu</span>
+                    „Antrenorii Bianca și Ionuț Ionescu au înființat acest club de dans sportiv, fiind o binecuvântare
+                    pentru copiii care doresc să practice acest sport. Ei insuflă copiilor disciplină, încredere de sine
+                    și bună purtare.”
+                    <span>Renata Orzeiu</span>
                 </figure>
                 <figure class="txt">
-                    "Școala de dans este locul unde copilul meu a învățat să se
-                    exprime liber și să-și dezvolte încrederea în sine."
-                    <span>Andrea Popescu</span>
+                    „Profesionalism la cel mai ridicat nivel. Educație, socializare, sport, dezvoltare personală, o mare
+                    familie, toate acestea prin dans. Aici se formează OAMENI, care dacă vor cădea de 6 ori, se vor
+                    ridica de 7.”
+                    <span>Andrei Ilie</span>
                 </figure>
                 <figure class="img">
                     <img loading="lazy"
@@ -247,9 +314,10 @@
                          decoding="async" src="/assets/img/experiente/img06.png" alt=""/>
                 </figure>
                 <figure class="txt">
-                    "Școala de dans este locul unde copilul meu a învățat să se
-                    exprime liber și să-și dezvolte încrederea în sine."
-                    <span>Andrea Popescu</span>
+                    „In spatele acestui sport minunat cum este dansul sportiv, se afla foarte multa munca, implicare si
+                    determinare dar si foarte multe beneficii si satisfactii care transforma viata dansatorilor intr-un
+                    vis frumos. The Best!♥️”
+                    <span>Patricia Guga</span>
                 </figure>
                 <figure class="img">
                     <img loading="lazy"
@@ -269,14 +337,15 @@
                          decoding="async" src="/assets/img/experiente/img01.png" alt=""/>
                 </figure>
                 <figure class="txt">
-                    "Școala de dans este locul unde copilul meu a învățat să se
-                    exprime liber și să-și dezvolte încrederea în sine."
-                    <span>Andrea Popescu</span>
+                    „Clubul de dans Life is Dance, prin antrenorii săi, au ridicat dansul la nivel de artă. Seriozitate,
+                    implicare, muncă, talent, dăruire și eleganță caracterizează acest club. Sunt impresionată de
+                    progresul fiicei mele.”
+                    <span>Alina Nicoleta Breaz</span>
                 </figure>
                 <figure class="txt">
-                    "Școala de dans este locul unde copilul meu a învățat să se
-                    exprime liber și să-și dezvolte încrederea în sine."
-                    <span>Andrea Popescu</span>
+                    „Oameni și antrenori minunați, muncitori și talentați!🥰💗 De 8 ani alături de ei și îi vom susține în
+                    continuare!❣️ Recomand 💯”
+                    <span>Popa Cristina</span>
                 </figure>
                 <figure class="img">
                     <img loading="lazy"
@@ -286,6 +355,49 @@
                     <img loading="lazy"
                          decoding="async" src="/assets/img/experiente/img02.png" alt=""/>
                 </figure>
+            </section>
+        </div>
+    </section>
+
+    <section class="section section--servicii" id="servicii">
+        <div class="full-width text-center">
+            <h2 class="section__title_secondary">Dans pentru fiecare etapă din viață</h2>
+            <section class="servicii-grid">
+                <article class="serviciu-card">
+                    <h3>Cursuri de dans pentru copii</h3>
+                    <p>Grupe dedicate copiilor: 4–7 ani și peste 7 ani. Prin joc și mișcare, cei mici descoperă pasiunea
+                        pentru dans și își dezvoltă coordonarea.</p>
+                </article>
+
+                <article class="serviciu-card">
+                    <h3>Cursuri de dans sportiv – Hobby</h3>
+                    <p>Pentru cei care vor să învețe pașii de bază și să se bucure de dans ca formă de relaxare și
+                        socializare.</p>
+                </article>
+
+                <article class="serviciu-card">
+                    <h3>Dans sportiv de performanță</h3>
+                    <p>Pregătire intensivă pentru competiții naționale și internaționale, alături de instructori cu
+                        rezultate de top în clasamentele WDSF.</p>
+                </article>
+
+                <article class="serviciu-card">
+                    <h3>Dansul mirilor</h3>
+                    <p>Coregrafii personalizate pentru primul dans al mirilor. Îndrumare pas cu pas pentru ca momentul
+                        vostru special să fie memorabil.</p>
+                </article>
+
+                <article class="serviciu-card">
+                    <h3>Cursuri pentru adulți și seniori</h3>
+                    <p>Lecții adaptate pentru adulți de orice vârstă. Mișcare, bună dispoziție și o modalitate elegantă
+                        de a face sport și de a socializa.</p>
+                </article>
+
+                <article class="serviciu-card">
+                    <h3>Show-uri și spectacole de dans</h3>
+                    <p>Momente artistice la evenimente: nunți, botezuri, petreceri corporate sau private. Spectacolele
+                        noastre aduc energie și culoare oricărei ocazii.</p>
+                </article>
             </section>
         </div>
     </section>
@@ -320,16 +432,15 @@
               </span>
                 </section>
                 <form id="contact">
-                    <!-- Nume Intreg field -->
                     <div class="form-group">
-                        <label for="nume">Nume Intreg</label>
+                        <label for="nume">Nume Întreg</label>
                         <input type="text" id="nume" name="nume" required/>
                     </div>
 
                     <!-- Radio group for contact preference -->
                     <div class="form-group">
                         <fieldset>
-                            <legend>Preferinta de contact</legend>
+                            <legend>Preferința de contact</legend>
                             <div class="radio-group">
                                 <label for="contact-sunat">
                                     <input
@@ -359,7 +470,7 @@
                                             value="email"
                                             required
                                     />
-                                    Raspuns pe email
+                                    Răspuns pe email
                                 </label>
                             </div>
                         </fieldset>
@@ -393,6 +504,20 @@
 
                     <p id="form-message" class="form-message" aria-live="polite" style="margin-top:12px"></p>
                 </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Contact/CTA -->
+    <section class="section section--harta" id="harta">
+        <div class="container text-center">
+            <!--            <h2 class="section__title_secondary">Ne găsești aici</h2>-->
+            <p>Bulevardul Ferdinand 13, Alba Iulia, România</p>
+            <br>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2768.30665069232!2d23.577792677496348!3d46.06492637109026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474ea77279f76941%3A0xa42f5eba6fec5d24!2sLife%20is%20Dance!5e0!3m2!1sen!2sro!4v1757844858214!5m2!1sen!2sro"
+                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>

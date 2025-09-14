@@ -792,3 +792,46 @@ legend {
   opacity: 0;
   transition: opacity 0.1s ease-in-out;
 }
+
+.servicii {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.servicii-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+    justify-items: center;
+}
+
+.serviciu-card {
+    background: #222;      /* poți schimba după tema ta */
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    max-width: 350px;
+}
+.serviciu-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+.serviciu-card p {
+    margin: 0;
+}
+
+.harta {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.map-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.section--harta {
+    border-top: solid 4px #2e2c2c;
+}
