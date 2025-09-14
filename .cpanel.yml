@@ -1,5 +1,75 @@
 ---
 deployment:
   tasks:
+    # Where to publish
     - 'export DEPLOYPATH=/home/oukygmkd/public_html'
-    - '/bin/bash -lc "scripts/deploy.sh"'
+
+    # Keep the server-side repo clean (no Terminal/SSH needed)
+    - '/usr/local/cpanel/3rdparty/bin/git reset --hard HEAD'
+    - '/usr/local/cpanel/3rdparty/bin/git clean -fdx'
+
+    # Build + publish (inline bash)
+    - '/bin/bash -lc "
+set -euo pipefail
+
+REPO=$(pwd)
+BUILD=$(mktemp -d)
+echo Building to: $BUILD
+mkdir -p \"$DEPLOYPATH\"
+
+# --- Stage files into BUILD ---
+cp -R \"$REPO/assets\" \"$BUILD/\" || true
+cp -R \"$REPO/api\" \"$BUILD/\" || true
+cp \"$REPO/index.html\" \"$BUILD/\" || true
+for f in styles.css script.js contact.js; do
+  [ -f \"$REPO/$f\" ] && cp \"$REPO/$f\" \"$BUILD/\" || true
+done
+
+# --- Fingerprint CSS/JS in BUILD ---
+hash8() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum \"$1\" | awk '\''{print $1}'\'' | cut -c1-8
+  else
+  shasum -a 256 \"$1\" | awk '\''{print $1}'\'' | cut -c1-8
+  fi
+}
+
+  MAP=''
+  for f in \"$BUILD\"/*.css \"$BUILD\"/*.js; do
+  [ -f \"$f\" ] || continue
+  b=$(basename \"$f\"); name=${b%.*}; ext=${b##*.}
+  h=$(hash8 \"$f\")
+  new=\"$name.$h.$ext\"
+  cp \"$f\" \"$BUILD/$new\"
+  MAP+=\"$b|$new\n\"
+  done
+  
+  # --- Rewrite references in index.html ---
+  if [ -f \"$BUILD/index.html\" ]; then
+  while IFS='|' read -r from to; do
+  [ -z \"$from\" ] && continue
+  sed -i \"s#\\([\\\"'(/]\\)$from\\([\\\"')?]\\)#\\1$to\\2#g\" \"$BUILD/index.html\"
+  rm -f \"$BUILD/$from\"
+  done <<< \"$(printf \"$MAP\")\"
+  fi
+  
+  # --- Cache headers ---
+  cat > \"$BUILD/.htaccess\" <<'HTX'
+  <IfModule mod_headers.c>
+  # long cache for versioned static assets
+  <FilesMatch "\.(?:css|js|png|jpe?g|gif|svg|webp|woff2)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # html should revalidate
+  <FilesMatch "\.html?$">
+  Header set Cache-Control "no-cache"
+  </FilesMatch>
+  </IfModule>
+  HTX
+  
+  # --- Publish atomically ---
+  rm -rf \"${DEPLOYPATH:?}/\"*
+  cp -R \"$BUILD/\"* \"$DEPLOYPATH/\"
+  
+  echo 'Deploy finished to' \"$DEPLOYPATH\"
+  "'
