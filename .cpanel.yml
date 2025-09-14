@@ -1,4 +1,5 @@
 ---
 deployment:
   tasks:
-    - /bin/bash scripts/deploy.sh
+    - 'export DEPLOYPATH=/home/oukygmkd/public_html'
+    - '/bin/bash -lc "scripts/deploy.sh"'
