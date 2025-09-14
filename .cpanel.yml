@@ -2,11 +2,9 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/oukygmkd/public_html
-    - /usr/local/cpanel/3rdparty/bin/git reset --hard HEAD
-    - /usr/local/cpanel/3rdparty/bin/git clean -fdx
     - /bin/rm -rf ${DEPLOYPATH}/*
-    - /bin/cp -R assets ${DEPLOYPATH}/
     - /bin/cp -R api ${DEPLOYPATH}/
+    - /bin/cp -R assets ${DEPLOYPATH}/
     - /bin/cp index.html ${DEPLOYPATH}/
     - /bin/cp styles.css ${DEPLOYPATH}/
     - /bin/cp script.js ${DEPLOYPATH}/
