@@ -1,7 +1,4 @@
 ---
 deployment:
   tasks:
-    # 1) where to deploy
-    - export DEPLOYPATH=/home/oukygmkd/public_html
-    # 2) run our deploy script (it builds + publishes)
     - /bin/bash scripts/deploy.sh
